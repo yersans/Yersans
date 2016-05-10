@@ -3,6 +3,8 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using System.ComponentModel.DataAnnotations;
+using System;
 
 namespace Yersans.Models
 {
@@ -16,6 +18,11 @@ namespace Yersans.Models
             // 在此处添加自定义用户声明
             return userIdentity;
         }
+
+        public DateTime BirthDate { get; set; }
+
+        [Display(Name = "QQ")]
+        public long Qq { get; set; }
     }
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>

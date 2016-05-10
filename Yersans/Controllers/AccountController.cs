@@ -152,6 +152,8 @@ namespace Yersans.Controllers
             if (ModelState.IsValid)
             {
                 var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                user.BirthDate = model.BirthDate;
+                user.Qq = model.Qq;
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {

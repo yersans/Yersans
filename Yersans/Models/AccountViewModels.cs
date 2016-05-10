@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace Yersans.Models
@@ -79,6 +80,11 @@ namespace Yersans.Models
         [Display(Name = "确认密码")]
         [Compare("Password", ErrorMessage = "密码和确认密码不匹配。")]
         public string ConfirmPassword { get; set; }
+
+        public DateTime BirthDate { get; set; }
+
+        [Display(Name = "QQ")]
+        public long Qq { get; set; }
     }
 
     public class ResetPasswordViewModel
