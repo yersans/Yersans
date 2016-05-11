@@ -2,6 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Security;
+using System;
 
 namespace Yersans.Models
 {
@@ -56,6 +57,18 @@ namespace Yersans.Models
         [Display(Name = "确认新密码")]
         [Compare("NewPassword", ErrorMessage = "新密码和确认密码不匹配。")]
         public string ConfirmPassword { get; set; }
+    }
+
+    public class EditInformationViewModel
+    {
+        [Display(Name = "电话号码")]
+        public string Number { get; set; }
+
+        [Display(Name = "生日")]
+        public DateTime BirthDate { get; set; }
+
+        [Display(Name = "QQ")]
+        public long Qq { get; set; }
     }
 
     public class AddPhoneNumberViewModel

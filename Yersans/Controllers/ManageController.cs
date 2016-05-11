@@ -276,6 +276,13 @@ namespace Yersans.Controllers
             return View(model);
         }
 
+        public async Task<ActionResult> EditInformation()
+        {
+            var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
+            var model = new EditInformationViewModel { Number = user.PhoneNumber, BirthDate = user.BirthDate, Qq = user.Qq };
+            return View(model);
+        }
+
         //
         // GET: /Manage/ManageLogins
         public async Task<ActionResult> ManageLogins(ManageMessageId? message)
