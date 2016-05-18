@@ -283,6 +283,34 @@ namespace Yersans.Controllers
             return View(model);
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> EditInformation(EditInformationViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                if (model.BirthDate < Convert.ToDateTime("01/01/1753") || model.BirthDate > Convert.ToDateTime("12/31/9999"))
+                {
+                    ModelState.AddModelError("BirthDate", "BirthDate must between 01/01/1753 and 12/31/9999");
+                }
+                else
+                {
+                    var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
+                    user.PhoneNumber = model.Number;
+                    user.BirthDate = model.BirthDate;
+                    user.Qq = model.Qq;
+
+                    var result = await UserManager.UpdateAsync(user);
+                    if (result.Succeeded)
+                    {
+                        return RedirectToAction("Index");
+                    }
+                    AddErrors(result);
+                }
+            }
+            return View(model);
+        }
+
         //
         // GET: /Manage/ManageLogins
         public async Task<ActionResult> ManageLogins(ManageMessageId? message)

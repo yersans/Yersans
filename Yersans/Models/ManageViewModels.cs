@@ -64,8 +64,9 @@ namespace Yersans.Models
         [Display(Name = "电话号码")]
         public string Number { get; set; }
 
+        [DataType(DataType.Date)]
         [Display(Name = "生日")]
-        public DateTime BirthDate { get; set; }
+        public DateTime? BirthDate { get; set; }
 
         [Display(Name = "QQ")]
         public long Qq { get; set; }

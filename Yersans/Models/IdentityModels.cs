@@ -19,7 +19,7 @@ namespace Yersans.Models
             return userIdentity;
         }
 
-        public DateTime BirthDate { get; set; }
+        public DateTime? BirthDate { get; set; }
 
         [Display(Name = "QQ")]
         public long Qq { get; set; }

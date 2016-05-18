@@ -213,6 +213,10 @@
     <Compile Include="Migrations\201605091541411_AddQqPropertyToIdentityModelsAndAccountViewModels.Designer.cs">
       <DependentUpon>201605091541411_AddQqPropertyToIdentityModelsAndAccountViewModels.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201605181310297_NullableBirthDate.cs" />
+    <Compile Include="Migrations\201605181310297_NullableBirthDate.Designer.cs">
+      <DependentUpon>201605181310297_NullableBirthDate.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -339,6 +343,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201605091541411_AddQqPropertyToIdentityModelsAndAccountViewModels.resx">
       <DependentUpon>201605091541411_AddQqPropertyToIdentityModelsAndAccountViewModels.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201605181310297_NullableBirthDate.resx">
+      <DependentUpon>201605181310297_NullableBirthDate.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
