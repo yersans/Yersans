@@ -19,37 +19,31 @@ namespace Yersans.Migrations
 
         protected override void Seed(Yersans.Models.ApplicationDbContext context)
         {
-            //  This method will be called after migrating to the latest version.
+            var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(context));
+            var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(context));
+            const string name = "yersans@126.com";
+            const string password = "Test_2016";
+            const string roleName = "Guest";
 
-            //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
-            //  to avoid creating duplicate seed data. E.g.
-            //
-            //    context.People.AddOrUpdate(
-            //      p => p.FullName,
-            //      new Person { FullName = "Andrew Peters" },
-            //      new Person { FullName = "Brice Lambson" },
-            //      new Person { FullName = "Rowan Miller" }
-            //    );
-            //
-            
-            var userManager = context.Users;
-            var roleManager = context.Roles;
-            const string name = "yersans@qq.com";
-            //const string password = "Test_2016";
-            const string roleName = "Admin";
-
-            var role = new IdentityRole(roleName);
-            if (roleManager.Any(r => r.Name == roleName) == false)
+            var role = roleManager.FindByName(roleName);
+            if (role == null)
             {
-                var roleResult = roleManager.Add(role);
+                role = new IdentityRole(roleName);
+                roleManager.Create(role);
             }
 
-            var user = userManager.Single(u => u.UserName == name);
-            var userRole = new IdentityUserRole { UserId = user.Id, RoleId = role.Id };
-            
-            if (!user.Roles.Contains(userRole))
+            var user = userManager.FindByName(name);
+            if (user == null)
             {
-                user.Roles.Add(userRole);
+                user = new ApplicationUser { UserName = name, Email = name };
+                var result = userManager.Create(user, password);
+                result = userManager.SetLockoutEnabled(user.Id, false);
+            }
+
+            var rolesForUser = userManager.GetRoles(user.Id);
+            if (!rolesForUser.Contains(role.Name))
+            {
+                userManager.AddToRole(user.Id, role.Name);
             }
         }
     }
