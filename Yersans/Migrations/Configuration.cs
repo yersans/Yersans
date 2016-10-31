@@ -45,6 +45,25 @@ namespace Yersans.Migrations
             {
                 userManager.AddToRole(user.Id, role.Name);
             }
+            
+            string adminUserName = "yersans@qq.com";
+            string adminRoleName = "Admin";
+
+            var admin = userManager.FindByName(adminUserName);
+            if (admin != null)
+            {
+                var adminRole = roleManager.FindByName(adminRoleName);
+                if (adminRole == null)
+                {
+                    roleManager.Create(new IdentityRole(adminRoleName));
+                }
+
+                var rolesForAdmin = userManager.GetRoles(admin.Id);
+                if (!rolesForAdmin.Contains(adminRoleName))
+                {
+                    userManager.AddToRoles(admin.Id, adminRole.Name);
+                }
+            }
         }
     }
 }

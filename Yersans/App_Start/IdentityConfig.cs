@@ -19,7 +19,23 @@ namespace Yersans
         public Task SendAsync(IdentityMessage message)
         {
             // 在此处插入电子邮件服务可发送电子邮件。
-            return Task.FromResult(0);
+            string username = "yourAccount@sina.com";
+            string sentFrom = "yourAccount@sina.com";
+            string password = "password";
+
+            System.Net.Mail.SmtpClient client = new System.Net.Mail.SmtpClient("smtp.sina.com");
+            client.Port = 25;
+            client.DeliveryMethod = System.Net.Mail.SmtpDeliveryMethod.Network;
+            client.UseDefaultCredentials = false;
+
+            System.Net.NetworkCredential credentials = new System.Net.NetworkCredential(username, password);
+            client.EnableSsl = true;
+            client.Credentials = credentials;
+
+            var mail = new System.Net.Mail.MailMessage(sentFrom, message.Destination);
+            mail.Subject = message.Subject;
+            mail.Body = message.Body;
+            return client.SendMailAsync(mail);
         }
     }
 
