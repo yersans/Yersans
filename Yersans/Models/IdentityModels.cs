@@ -25,6 +25,13 @@ namespace Yersans.Models
         public long Qq { get; set; }
     }
 
+    public class ApplicationRole : IdentityRole
+    {
+        public ApplicationRole() : base() { }
+        public ApplicationRole(string name) : base(name) { }
+        public string Description { get; set; }
+    }
+
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext()
@@ -36,5 +43,7 @@ namespace Yersans.Models
         {
             return new ApplicationDbContext();
         }
+
+        public System.Data.Entity.DbSet<Yersans.Models.ApplicationRole> IdentityRoles { get; set; }
     }
 }

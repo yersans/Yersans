@@ -19,8 +19,9 @@ namespace Yersans.Migrations
 
         protected override void Seed(Yersans.Models.ApplicationDbContext context)
         {
+            // For the reason of adding RolesAdmin, run sql script "UPDATE AspNetRoles SET Discriminator = 'ApplicationRole';" to avoid exceptions.
             var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(context));
-            var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(context));
+            var roleManager = new RoleManager<ApplicationRole>(new RoleStore<ApplicationRole>(context));
             const string name = "yersans@126.com";
             const string password = "Test_2016";
             const string roleName = "Guest";
@@ -28,7 +29,7 @@ namespace Yersans.Migrations
             var role = roleManager.FindByName(roleName);
             if (role == null)
             {
-                role = new IdentityRole(roleName);
+                role = new ApplicationRole(roleName);
                 roleManager.Create(role);
             }
 
@@ -55,7 +56,7 @@ namespace Yersans.Migrations
                 var adminRole = roleManager.FindByName(adminRoleName);
                 if (adminRole == null)
                 {
-                    roleManager.Create(new IdentityRole(adminRoleName));
+                    roleManager.Create(new ApplicationRole(adminRoleName));
                 }
 
                 var rolesForAdmin = userManager.GetRoles(admin.Id);
