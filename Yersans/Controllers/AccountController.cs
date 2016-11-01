@@ -163,7 +163,7 @@ namespace Yersans.Controllers
                     // 发送包含此链接的电子邮件
                     string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
                     var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                    await UserManager.SendEmailAsync(user.Id, "确认你的帐户", "请通过单击 <a href=\"" + callbackUrl + "\">這裏</a>来确认你的帐户");
+                    await UserManager.SendEmailAsync(user.Id, "确认你的帐户", "请通过单击 " + callbackUrl + " 来确认你的帐户");
 
                     return RedirectToAction("Index", "Home");
                 }

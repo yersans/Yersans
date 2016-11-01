@@ -11,6 +11,7 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using Microsoft.Owin.Security;
 using Yersans.Models;
+using System.Configuration;
 
 namespace Yersans
 {
@@ -19,9 +20,9 @@ namespace Yersans
         public Task SendAsync(IdentityMessage message)
         {
             // 在此处插入电子邮件服务可发送电子邮件。
-            string username = "yourAccount@sina.com";
-            string sentFrom = "yourAccount@sina.com";
-            string password = "password";
+            string username = ConfigurationManager.AppSettings["EmailUserName"];
+            string sentFrom = ConfigurationManager.AppSettings["EmailSentFrom"];
+            string password = ConfigurationManager.AppSettings["EmailPassword"];
 
             System.Net.Mail.SmtpClient client = new System.Net.Mail.SmtpClient("smtp.sina.com");
             client.Port = 25;
