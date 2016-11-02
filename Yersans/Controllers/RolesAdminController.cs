@@ -11,6 +11,7 @@ using Yersans.Models;
 
 namespace Yersans.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class RolesAdminController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();

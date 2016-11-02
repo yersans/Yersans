@@ -9,6 +9,9 @@
         <li>
             @Html.ActionLink("你好，" + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
         </li>
+        @if (User.IsInRole("Admin")) {
+            <li>@Html.ActionLink("Roles", "Index", "RolesAdmin", routeValues: null, htmlAttributes: new { title = "Manage Roles" })</li>
+        }
         <li><a href="javascript:document.getElementById('logoutForm').submit()">注销</a></li>
     </ul>
     }
