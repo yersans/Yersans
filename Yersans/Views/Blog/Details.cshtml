@@ -1,0 +1,82 @@
+﻿@model Yersans.Models.BlogPost
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>BlogPost</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Title)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Title)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Body)
+        </dt>
+
+        <dd>
+            @Html.Raw(Model.Body)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BodyOverview)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BodyOverview)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AllowComments)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AllowComments)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CommentCount)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CommentCount)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Tags)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Tags)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CreatedDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CreatedDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ModifiedDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ModifiedDate)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.BlogPostId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

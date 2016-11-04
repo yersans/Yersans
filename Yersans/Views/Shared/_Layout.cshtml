@@ -7,6 +7,17 @@
     <title>@ViewBag.Title - 我的 ASP.NET 应用程序</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+    <script src="~/Scripts/tinymce/tinymce.min.js"></script>
+    <script>
+        tinymce.init({
+            selector: "textarea",  // change this value according to your HTML
+            plugins: "image",
+            image_list: [
+              { title: 'My image 1', value: 'http://www.tinymce.com/my1.gif' },
+              { title: 'My image 2', value: 'http://www.moxiecode.com/my2.gif' }
+            ]
+        });
+    </script>
     <link href="~/Content/themes/base/all.css" rel="stylesheet" />
 
 </head>

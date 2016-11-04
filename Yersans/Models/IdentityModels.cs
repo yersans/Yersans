@@ -45,5 +45,8 @@ namespace Yersans.Models
         }
 
         public System.Data.Entity.DbSet<Yersans.Models.ApplicationRole> IdentityRoles { get; set; }
+
+        public virtual DbSet<BlogPost> BlogPosts { get; set; }
+        public virtual DbSet<BlogComment> BlogComments { get; set; }
     }
 }
