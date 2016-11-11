@@ -4,6 +4,41 @@
     ViewBag.Title = "Index";
 }
 
+<script>
+    $(document).ready(function () {
+        $("a:contains('Delete')").click(function (event) {
+            event.preventDefault();
+            deleteBlog(this);
+        });
+    });
+
+    var deleteBlog = function (link) {
+        $("#dialog-confirm").dialog({
+            resizable: false,
+            height: "auto",
+            width: 400,
+            modal: true,
+            buttons: {
+                "Delete": function () {
+                    $.ajax({
+                        url: '/Blog/Movies',
+                        data: {},
+                        success: function (response) {
+                            if (response.length != null) {
+                                link.closest(".blog-post").hidden = true;
+                            }
+                        }
+                    });
+                    $(this).dialog("close");
+                },
+                Cancel: function () {
+                    $(this).dialog("close");
+                }
+            }
+        }).show();
+    }
+</script>
+
 <div class="container">
     <div class="blog-header">
         @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-lg btn-primary" })
@@ -19,7 +54,9 @@
                     <div>@Html.Raw(item.Body)</div>
                     <p class="blog-post-meta">@Html.ActionLink("Edit", "Edit", new { id = item.BlogPostId }) |
                     @Html.ActionLink("Details", "Details", new { id = item.BlogPostId }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = item.BlogPostId })</p>
+                    @Html.ActionLink("Delete", "Delete", new { id = item.BlogPostId })
+                    @*<a href="javascript:deleteBlog('@ViewContext.RouteData.Values["controller"].ToString()' + '/Delete/@item.BlogPostId');">test</a>*@
+                    </p>
                 </div>
             }
         </div>
@@ -56,4 +93,8 @@
             </div>
         </div>
     </div>
+</div>
+
+<div id="dialog-confirm" title="Delete this post?" hidden="hidden">
+    <p><span class="ui-icon ui-icon-alert" style="float:left; margin:12px 12px 20px 0;"></span>Are you sure?</p>
 </div>
