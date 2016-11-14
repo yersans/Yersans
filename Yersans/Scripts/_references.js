@@ -75,3 +75,4 @@
 /// <reference path="tinymce/themes/inlite/theme.min.js" />
 /// <reference path="tinymce/themes/modern/theme.min.js" />
 /// <reference path="tinymce/tinymce.min.js" />
+/// <reference path="yersans.common.js" />

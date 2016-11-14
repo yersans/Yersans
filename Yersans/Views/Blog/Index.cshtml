@@ -3,6 +3,7 @@
 @{
     ViewBag.Title = "Index";
 }
+@Html.AntiForgeryToken()
 
 <script>
     $(document).ready(function () {
@@ -21,14 +22,15 @@
             buttons: {
                 "Delete": function () {
                     $.ajax({
-                        url: '/Blog/Movies',
-                        data: {},
-                        success: function (response) {
-                            if (response.length != null) {
+                        method: "POST",
+                        url: link,
+                        data: addAntiForgeryToken()
+                    }).done(
+                        function (response) {
+                            if (response.result == "success") {
                                 link.closest(".blog-post").hidden = true;
                             }
-                        }
-                    });
+                        });
                     $(this).dialog("close");
                 },
                 Cancel: function () {
@@ -55,6 +57,7 @@
                     <p class="blog-post-meta">@Html.ActionLink("Edit", "Edit", new { id = item.BlogPostId }) |
                     @Html.ActionLink("Details", "Details", new { id = item.BlogPostId }) |
                     @Html.ActionLink("Delete", "Delete", new { id = item.BlogPostId })
+                        @*@Html.ActionLink("Delete", "Movies", new { id = item.BlogPostId })*@
                     @*<a href="javascript:deleteBlog('@ViewContext.RouteData.Values["controller"].ToString()' + '/Delete/@item.BlogPostId');">test</a>*@
                     </p>
                 </div>

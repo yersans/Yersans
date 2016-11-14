@@ -116,7 +116,7 @@ namespace Yersans.Controllers
             BlogPost blogPost = await db.BlogPosts.FindAsync(id);
             db.BlogPosts.Remove(blogPost);
             await db.SaveChangesAsync();
-            return RedirectToAction("Index");
+            return Json(new { result = "success" });
         }
 
         public ActionResult Movies()
