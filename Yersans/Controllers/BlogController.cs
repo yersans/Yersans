@@ -11,17 +11,20 @@ using Yersans.Models;
 
 namespace Yersans.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class BlogController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Blog
+        [AllowAnonymous]
         public async Task<ActionResult> Index()
         {
             return View(await db.BlogPosts.ToListAsync());
         }
 
         // GET: Blog/Details/5
+        [AllowAnonymous]
         public async Task<ActionResult> Details(int? id)
         {
             if (id == null)

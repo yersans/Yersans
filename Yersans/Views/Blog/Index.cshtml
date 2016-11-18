@@ -54,12 +54,20 @@
                     <h2 class="blog-post-title">@item.Title</h2>
                     <p class="blog-post-meta">@item.CreatedDate</p>
                     <div>@Html.Raw(item.Body)</div>
-                    <p class="blog-post-meta">@Html.ActionLink("Edit", "Edit", new { id = item.BlogPostId }) |
-                    @Html.ActionLink("Details", "Details", new { id = item.BlogPostId }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = item.BlogPostId })
-                        @*@Html.ActionLink("Delete", "Movies", new { id = item.BlogPostId })*@
-                    @*<a href="javascript:deleteBlog('@ViewContext.RouteData.Values["controller"].ToString()' + '/Delete/@item.BlogPostId');">test</a>*@
-                    </p>
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <p class="blog-post-meta">
+                            @Html.ActionLink("Edit", "Edit", new { id = item.BlogPostId }) |
+                            @Html.ActionLink("Details", "Details", new { id = item.BlogPostId }) |
+                            @Html.ActionLink("Delete", "Delete", new { id = item.BlogPostId })
+                        </p>
+                    }
+                    else
+                    {
+                        <p class="blog-post-meta">
+                            @Html.ActionLink("Details", "Details", new { id = item.BlogPostId })
+                        </p>
+                    }
                 </div>
             }
         </div>
