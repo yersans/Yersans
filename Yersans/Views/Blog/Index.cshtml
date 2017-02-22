@@ -1,0 +1,111 @@
+﻿@model IEnumerable<Yersans.Models.BlogPost>
+
+@{
+    ViewBag.Title = "Index";
+}
+@Html.AntiForgeryToken()
+
+<script>
+    $(document).ready(function () {
+        $("a:contains('Delete')").click(function (event) {
+            event.preventDefault();
+            deleteBlog(this);
+        });
+    });
+
+    var deleteBlog = function (link) {
+        $("#dialog-confirm").dialog({
+            resizable: false,
+            height: "auto",
+            width: 400,
+            modal: true,
+            buttons: {
+                "Delete": function () {
+                    $.ajax({
+                        method: "POST",
+                        url: link,
+                        data: addAntiForgeryToken()
+                    }).done(
+                        function (response) {
+                            if (response.result == "success") {
+                                link.closest(".blog-post").hidden = true;
+                            }
+                        });
+                    $(this).dialog("close");
+                },
+                Cancel: function () {
+                    $(this).dialog("close");
+                }
+            }
+        }).show();
+    }
+</script>
+
+<div class="container">
+    <div class="blog-header">
+        @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-lg btn-primary" })
+    </div>
+
+    <div class="row">
+        <div class="col-sm-8 blog-main">
+            @foreach (var item in Model)
+            {
+                <div class="blog-post">
+                    <h2 class="blog-post-title">@item.Title</h2>
+                    <p class="blog-post-meta">@item.CreatedDate</p>
+                    <div>@Html.Raw(item.Body)</div>
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <p class="blog-post-meta">
+                            @Html.ActionLink("Edit", "Edit", new { id = item.BlogPostId }) |
+                            @Html.ActionLink("Details", "Details", new { id = item.BlogPostId }) |
+                            @Html.ActionLink("Delete", "Delete", new { id = item.BlogPostId })
+                        </p>
+                    }
+                    else
+                    {
+                        <p class="blog-post-meta">
+                            @Html.ActionLink("Details", "Details", new { id = item.BlogPostId })
+                        </p>
+                    }
+                </div>
+            }
+        </div>
+
+        <div class="col-sm-3 col-sm-offset-1 blog-sidebar">
+            <div class="sidebar-module sidebar-module-inset">
+                <h4>About</h4>
+                <p>Etiam porta <em>sem malesuada magna</em> mollis euismod. Cras mattis consectetur purus sit amet fermentum. Aenean lacinia bibendum nulla sed consectetur.</p>
+            </div>
+            <div class="sidebar-module">
+                <h4>Archives</h4>
+                <ol class="list-unstyled">
+                    <li><a href="#">March 2014</a></li>
+                    <li><a href="#">February 2014</a></li>
+                    <li><a href="#">January 2014</a></li>
+                    <li><a href="#">December 2013</a></li>
+                    <li><a href="#">November 2013</a></li>
+                    <li><a href="#">October 2013</a></li>
+                    <li><a href="#">September 2013</a></li>
+                    <li><a href="#">August 2013</a></li>
+                    <li><a href="#">July 2013</a></li>
+                    <li><a href="#">June 2013</a></li>
+                    <li><a href="#">May 2013</a></li>
+                    <li><a href="#">April 2013</a></li>
+                </ol>
+            </div>
+            <div class="sidebar-module">
+                <h4>Elsewhere</h4>
+                <ol class="list-unstyled">
+                    <li><a href="#">GitHub</a></li>
+                    <li><a href="#">Twitter</a></li>
+                    <li><a href="#">Facebook</a></li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="dialog-confirm" title="Delete this post?" hidden="hidden">
+    <p><span class="ui-icon ui-icon-alert" style="float:left; margin:12px 12px 20px 0;"></span>Are you sure?</p>
+</div>

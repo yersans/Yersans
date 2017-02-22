@@ -7,7 +7,14 @@
     <title>@ViewBag.Title - 我的 ASP.NET 应用程序</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/jqueryui")
+    @RenderSection("scripts", required: false)
+    
     <link href="~/Content/themes/base/all.css" rel="stylesheet" />
+    <link href="~/Content/custom/blog.css" rel="stylesheet" />
+    <script src="~/Scripts/yersans.common.js"></script>
 
 </head>
 <body>
@@ -39,9 +46,5 @@
         </footer>
     </div>
 
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
-    @Scripts.Render("~/bundles/jqueryui")
-    @RenderSection("scripts", required: false)
 </body>
 </html>
